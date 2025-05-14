@@ -308,8 +308,15 @@ exportHandler('AddBoxZone', function(name, center, length, width, options, targe
     local z = center.z
 
     if not options.useZ then
-        z = z + math.abs(options.maxZ - options.minZ) / 2
-        center = vec3(center.x, center.y, z)
+	if not options.maxZ then
+		options.maxZ = 30
+		z = z + math.abs(options.maxZ - options.minZ) / 2
+        	center = vec3(center.x, center.y, z)
+	else
+ 		z = z + math.abs(options.maxZ - options.minZ) / 2
+        	center = vec3(center.x, center.y, z)
+	end
+      
     end
 
     return api.addBoxZone({
